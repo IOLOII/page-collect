@@ -50,7 +50,7 @@
       "forceWebAuthFlow": false,
       "githubBranch": "main",
       "githubRepository": "page-collect",
-      "githubToken": "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",
+      "githubToken": "##to insert githubtoken",
       "githubUser": "IOLOII",
       "groupDuplicateImages": true,
       "ignoredBookmarkFolders": [
