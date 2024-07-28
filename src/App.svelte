@@ -8,7 +8,7 @@
   const files = __HTML_FILES__
 </script>
 
-<main class="mx-20">
+<main class="w-full md:w-auto">
   <!-- <Router {routes} /> -->
   <div
     class="flex w-full justify-center text-2xl relative m-10"
@@ -32,15 +32,18 @@
     <span class="absolute text-sm italic text-slate-700 top-0 left-10">powered by:</span>
   </div>
   <ul
-    class="min-w-fit shrink overflow-hidden hover:overflow-y-auto scroll-smooth text-wrap rounded-lg bg-transpatnet items-start flex flex-col gap-2
+    class="min-w-fit shrink md:overflow-hidden hover:overflow-y-auto scroll-smooth text-wrap rounded-lg bg-transpatnet items-start flex flex-col gap-2 w-full md:w-full sm:p-4 md:p-10 p-2 overflow-y-auto
 		"
     style="height:calc(100vh - 275px);scrollbar-gutter: stable;"
   >
     <!-- scrollbar-gutter-stable 貌似无用 -->
     {#each __HTML_FILES__ as filename}
-      <li class="my-2 rounded-md hover:bg-slate-700 p-2 w-full hover:text-white">
+      <li
+        class="my-2 rounded-md bg-slate-100 dark:bg-slate-700 p-4 w-full hover:text-red-600 dark:md:hover:bg-slate-700 dark:hover:text-white"
+      >
         <a href={'./' + filename} class="text-wrap text-justify flex" target="_blank">{filename}</a>
       </li>
+      <!-- hover:bg-slate-700 -->
     {/each}
   </ul>
 </main>
@@ -68,7 +71,13 @@
     filter: drop-shadow(0 0 2em #ff3e00aa);
   }
   .logo.github:hover {
-    filter: drop-shadow(0 0 2em #f3f3f3aa);
+    /* filter: drop-shadow(0 0 2em #353535); */
+    filter: drop-shadow(0 0 2em #3b82f6);
+  }
+  @media (prefers-color-scheme: dark) {
+    .logo.github:hover {
+      filter: drop-shadow(0 0 2em #f3f3f3aa);
+    }
   }
   .read-the-docs {
     color: #888;
