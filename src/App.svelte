@@ -39,7 +39,7 @@
     <!-- scrollbar-gutter-stable 貌似无用 -->
     {#each __HTML_FILES__ as filename}
       <li class="my-2 rounded-md hover:bg-slate-700 p-2 w-full hover:text-white">
-        <a href={'./' + filename} class="text-wrap text-justify flex" target="null">{filename}</a>
+        <a href={'./' + filename} class="text-wrap text-justify flex" target="_blank">{filename}</a>
       </li>
     {/each}
   </ul>

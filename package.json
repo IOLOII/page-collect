@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
+    "predeploy": "npm run build && rm -rf ./index.html && cp ./*.html ./dist/",
+    "build:test": "npm run build && rm -rf ./index.html && cp ./*.html ./dist/ && git restore index.html",
+    "deploy": "gh-pages -d dist && git restore index.html"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
@@ -24,6 +27,7 @@
     "@types/node": "^20.14.12",
     "autoprefixer": "^10.4.19",
     "fast-glob": "^3.3.2",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.40",
     "sass": "^1.77.8",
     "svelte-spa-router": "^4.0.1",
