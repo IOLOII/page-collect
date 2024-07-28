@@ -51,6 +51,7 @@ htmlFiles = htmlFiles.sort((a, b) => b.birthtime - a.birthtime).map(item => item
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte()],
+  base: './',
 
   define: {
     __HTML_FILES__: JSON.stringify(htmlFiles),
