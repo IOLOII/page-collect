@@ -20,13 +20,13 @@
       max-width: 500px;
     "
   >
-    <a href="hello.html" rel="noreferrer">
+    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
       <img src={viteLogo} class="logo" alt="Vite Logo" />
     </a>
-    <a href="hello.html" target="null" rel="noreferrer">
+    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
       <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
     </a>
-    <a href="hello.html" target="null" rel="noreferrer">
+    <a href="https://github.com/IOLOII/page-collect" target="_blank" rel="noreferrer">
       <img src={Github} class="logo github" alt="github Logo" />
     </a>
     <span class="absolute text-sm italic text-slate-700 top-0 left-10">powered by:</span>
