@@ -8,9 +8,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && rm -rf ./index.html && cp ./*.html ./dist/ ",
     "build:test": "npm run build && rm -rf ./index.html && cp ./*.html ./dist/ && git restore index.html",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "deploy:local": "gh-pages -d dist && git restore index.html"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
