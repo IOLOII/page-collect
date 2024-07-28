@@ -10,7 +10,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
     "predeploy": "npm run build && rm -rf ./index.html && cp ./*.html ./dist/",
     "build:test": "npm run build && rm -rf ./index.html && cp ./*.html ./dist/ && git restore index.html",
-    "deploy": "gh-pages -d dist && git restore index.html"
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
