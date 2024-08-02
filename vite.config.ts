@@ -1,10 +1,6 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 
-
-
-
-
 import fs from 'fs'
 import path from 'path'
 
@@ -38,9 +34,39 @@ const currentDir = process.cwd()
 
 // 查找所有 HTML 文件
 let htmlFiles = findHtmlFiles(currentDir)
-htmlFiles = htmlFiles.sort((a, b) => b.birthtime - a.birthtime).map(item => item.file)
+// 根据文件名称格式对其中最后的 时间标识进行时间排序
+const reg = /\((\d{4}_\d{1,2}_\d{1,2} \D*\d{1,2}_\d{2}_\d{2})\)\.html$/
+htmlFiles = htmlFiles.sort((a, b) => {
+  const aTimeMatch = a.file.match(reg)
+  const bTimeMatch = b.file.match(reg)
+  if (aTimeMatch && bTimeMatch) {
+    const aTime = aTimeMatch[1]
+    const bTime = bTimeMatch[1]
+    const aTimeParsed = parseTime(aTime)
+    const bTimeParsed = parseTime(bTime)
+    return bTimeParsed.getTime() - aTimeParsed.getTime()
+  }
+  return 0
+}).map(item => item.file)
 
+// 解析时间字符串
+function parseTime(timeStr: string): Date {
+  const [date, time] = timeStr.split(' ')
+  const [year, month, day] = date.split('_').map(Number)
+  const periodMatch = time.match(/(下午|上午)/)
+  const period = periodMatch ? periodMatch[0] : ''
+  const timePart = time.replace(period, '')
+  let [hour, minute, second] = timePart.split('_').map(Number)
+  if (period === '下午' && hour < 12) {
+    hour += 12
+  }
+  return new Date(year, month - 1, day, hour, minute, second)
+}
 
+// 打印所有找到的 HTML 文件
+htmlFiles.forEach(htmlFile => {
+  console.log(`htmlFile`, htmlFile)
+})
 // 打印所有找到的 HTML 文件
 // htmlFiles.forEach(htmlFile => {
 //   console.log(`htmlFile`, htmlFile)
@@ -51,6 +77,11 @@ htmlFiles = htmlFiles.sort((a, b) => b.birthtime - a.birthtime).map(item => item
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [svelte()],
+  server: {
+    port: 5173,
+    host: '0.0.0.0',
+    cors: true,
+  },
   base: './',
 
   define: {
