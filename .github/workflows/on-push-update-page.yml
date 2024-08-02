@@ -1,47 +1,80 @@
-# This is a basic workflow to help you get started with Actions
+# 这是一个基本的workflow，帮助你开始使用Actions
 
 name: CI
 
-# Controls when the workflow will run
+# 控制workflow何时运行
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+  # 在push或pull request事件触发workflow，但仅限于"main"分支
   push:
     branches: [ "main" ]
 #   pull_request:
 #    branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # 允许你从Actions标签手动运行此workflow
   workflow_dispatch:
 
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# 设置GITHUB_TOKEN的权限，允许部署到GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# 允许一次并发部署，跳过在进行的运行和最新排队之间的运行。
+# 但是，不要取消正在进行中的运行，因为我们希望允许这些生产部署完成。
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# 一个workflow运行由一个或多个可以顺序或并行运行的job组成
 jobs:
-  # This workflow contains a single job called "build"
+  # 此workflow包含一个名为"build"的job
   build:
-    # The type of runner that the job will run on
+    # job将在的运行器类型
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # 步骤表示将作为job一部分执行的任务序列
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-        npx gh-pages -d dist
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # 检出你的仓库到$GITHUB_WORKSPACE，以便你的job可以访问它
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: buidl
         run: |
-          # gh-pages -d dist,
-          # git restore index.html,
-          # echo test, and deploy your project.
+          npm install
+          npm run build
+          rm -rf ./index.html
+          cp ./*.html ./dist/
+
+
+      # - name: npm install and build
+        # run: |
+        #   gh-pages -d dist
+      # - name: deploy to GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./dist
+      #   run: npx gh-pages -d dist
+      # 使用运行器的shell运行一组命令
+      # - name: Run a multi-line script
+      #   run: |
+      #     # gh-pages -d dist,
+      #     # git restore index.html,
+      #     # echo test, and deploy your project.
+
+  # 部署任务
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
