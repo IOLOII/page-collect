@@ -30,31 +30,31 @@ concurrency:
 # 一个workflow运行由一个或多个可以顺序或并行运行的job组成
 jobs:
   # 此workflow包含一个名为"build"的job
-  build:
-    # job将在的运行器类型
-    runs-on: ubuntu-latest
+  # build:
+  #   # job将在的运行器类型
+  #   runs-on: ubuntu-latest
 
-    # 步骤表示将作为job一部分执行的任务序列
-    steps:
-      # 检出你的仓库到$GITHUB_WORKSPACE，以便你的job可以访问它
-      - name: checkout
-        uses: actions/checkout@v4
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-      - name: buidl
-        run: |
-          npm install
-          npm run build
-          rm -rf ./index.html
-          cp ./*.html ./dist/
-          echo "budil finished"
-      - name: Upload dist directory as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: dist
+  #   # 步骤表示将作为job一部分执行的任务序列
+  #   steps:
+  #     # 检出你的仓库到$GITHUB_WORKSPACE，以便你的job可以访问它
+  #     - name: checkout
+  #       uses: actions/checkout@v4
+  #     - name: Use Node.js 18.x
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18.x
+  #     - name: build
+  #       run: |
+  #         npm install
+  #         npm run build
+  #         rm -rf ./index.html
+  #         cp ./*.html ./dist/
+  #         echo "budil finished"
+  #     - name: Upload dist directory as artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: github-pages
+  #         path: dist
 
       # - name: npm install and build
         # run: |
@@ -72,20 +72,36 @@ jobs:
       #     # git restore index.html,
       #     # echo test, and deploy your project.
 
-  # 部署任务
+  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
     steps:
-      - name: Download github-pages artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: dist
+      - name: Checkout
+        uses: actions/checkout@v4
 
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: build
+        run: |
+          npm install
+          npm run build
+          rm -rf ./index.html
+          cp ./*.html ./dist/
+          echo "budil finished"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
