@@ -40,8 +40,8 @@
       <a href="https://github.com/IOLOII/page-collect" target="_blank" rel="noreferrer">
         <img src={Github} class="logo aspect-square github" alt="github Logo" />
       </a>
-      <a href="https://github.com/IOLOII/page-collect" target="_blank" rel="noreferrer">
-        <img src={avator} class="inline-block h-12 w-12 rounded-full ring-2 mx-4" alt="github Logo aspect-square" />
+      <a href="https://github.com/IOLOII" target="_blank" rel="noreferrer">
+        <img src={avator} class="inline-block h-12 w-12 rounded-full ring-2 mx-4 aspect-square" alt="github user avator" />
       </a>
     </div>
     <!-- <span class="absolute text-sm italic text-slate-700 top-[-20px] left-4 dark:text-[#dc2626]">powered:</span> -->
