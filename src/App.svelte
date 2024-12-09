@@ -28,7 +28,13 @@
     <a href="https://github.com/IOLOII/page-collect" target="_blank" rel="noreferrer">
       <img src={Github} class="logo aspect-square github" alt="github Logo" />
     </a> -->
-    <div class="text-2xl md:text-4xl">Page Collect</div>
+    <div class="">
+      <h1>日常开发问题记录</h1>
+      <a
+        class="text-xl md:text-m color-red-100 dark:color-red-700 text-left relative left-0 top-0"
+        href="https://invite.spcloud.vip/#/register?code=Ev6ZpuEZ">👉机场分享：点击前往👈</a
+      >
+    </div>
 
     <div class="flex -space-x-0 items-center">
       <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
@@ -41,12 +47,15 @@
         <img src={Github} class="logo aspect-square github" alt="github Logo" />
       </a>
       <a href="https://github.com/IOLOII" target="_blank" rel="noreferrer">
-        <img src={avator} class="inline-block h-12 w-12 rounded-full ring-2 mx-4 aspect-square" alt="github user avator" />
+        <img
+          src={avator}
+          class="inline-block h-12 w-12 rounded-full ring-2 mx-4 aspect-square"
+          alt="github user avator"
+        />
       </a>
     </div>
     <!-- <span class="absolute text-sm italic text-slate-700 top-[-20px] left-4 dark:text-[#dc2626]">powered:</span> -->
   </div>
-  <!-- <div class="text-sm md:text-m color-slate-100 dark:color-slate-700 text-left relative left-0 top-0">日常随手收录不错的文章或解决方案</div> -->
 
   <ul
     class="min-w-fit shrink overflow-y-auto md:overflow-hidden hover:overflow-y-auto scroll-smooth text-wrap rounded-lg bg-transpatnet items-start flex flex-col gap-2 w-full md:w-full p-2 sm:p-4 md:p-0 h-[calc(100dvh-45px-42px-10px)] md:h-[calc(100dvh-45px-77px-30px)]

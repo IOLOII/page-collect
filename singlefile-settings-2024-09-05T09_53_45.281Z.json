@@ -1,7 +1,3 @@
-// 配置文件替换 并删除注释
-// "githubRepository": "***githubRepository***",
-// "githubToken": "***githubToken***",
-// "githubUser": "***githubUser***",
 {
   "profiles": {
     "__Default_Settings__": {
